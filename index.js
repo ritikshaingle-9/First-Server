@@ -10,7 +10,7 @@ import {
   postStudents,
   putStudentsById,
   getStudentsById,
-} from "./controllers/student.js";
+} from "./controllers/student";
 
 const app = express();
 app.use(cors());
