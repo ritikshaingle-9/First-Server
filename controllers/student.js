@@ -187,7 +187,7 @@ const putStudentsById = (req, res) => {
       message: `Student with id:${id} updated successfully`,
     });
   };
-  
+//----------------------get student by id------------------------------// 
   const getStudentsById = (req, res) => {
     const { id } = req.params;
   
@@ -212,7 +212,7 @@ const putStudentsById = (req, res) => {
       });
     }
   };
-  
+//----------------------get student search------------------------------// 
   const getStudentsSearch = (req, res) => {
     const { name } = req.query;
     const { authorization } = req.headers;
