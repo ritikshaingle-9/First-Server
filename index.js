@@ -10,13 +10,13 @@ import {
   postStudents,
   putStudentsById,
   getStudentsById,
-} from "./controllers/student";
+} from "./controllers/student.js";
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-const PORT = 5001;
+const PORT = 5002;
 
 app.get("/health", getHealth);
 app.get("/students", getStudents);

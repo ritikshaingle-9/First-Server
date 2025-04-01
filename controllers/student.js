@@ -1,23 +1,24 @@
+// this is a temporary data store
 const STUDENTS = [
     {
       id: 1,
-      name: "Akash",
+      name: "Ritiksha",
       city: "Amravati",
     },
     {
       id: 2,
-      name: "Amit",
+      name: "Kiran",
       city: "Pune",
     },
   ];
-//------------------------------health API---------------------------------------//
-const getHealth = (req, res) => {
+  
+  const getHealth = (req, res) => {
     res.json({
       success: true,
       message: "Server is running",
     });
   };
-//------------------------------Get API---------------------------------------//
+//--------------------------------get all students--------------------------------//
   const getStudents = (req, res) => {
     res.status(200).json({
       success: true,
@@ -25,7 +26,7 @@ const getHealth = (req, res) => {
       message: "Students fetched successfully",
     });
   };
-//------------------------------Post API---------------------------------------//
+//--------------------------------post--------------------------------//
   const postStudents = (req, res) => {
     const { name, city, id } = req.body;
   
@@ -73,8 +74,8 @@ const getHealth = (req, res) => {
       message: "Student created successfully",
     });
   };
-//------------------------------Delete API---------------------------------------//
-const deleteStudentsById = (req, res) => {
+//--------------------------------delete--------------------------------//
+  const deleteStudentsById = (req, res) => {
     const { id } = req.params;
   
     let studentIndex = -1;
@@ -98,54 +99,54 @@ const deleteStudentsById = (req, res) => {
       });
     }
   };
-//------------------------------Put API---------------------------------------//
-  const putStudentsById = (req, res) => {
-    const { id } = req.params;
-    const { name, city } = req.body;
-  
-    if (!name) {
-      return res.json({
-        success: false,
-        message: "Name is required",
-      });
-    }
-  
-    if (!city) {
-      return res.json({
-        success: false,
-        message: "City is required",
-      });
-    }
-  
-    let studentIndex = -1;
-  
-    STUDENTS.forEach((stud, i) => {
-      if (stud.id == id) {
-        studentIndex = i;
-      }
+//--------------------------------put student by id--------------------------------//
+const putStudentsById = (req, res) => {
+  const { id } = req.params;
+  const { name, city } = req.body;
+
+  if (!name) {
+    return res.json({
+      success: false,
+      message: "Name is required",
     });
-  
-    if (studentIndex == -1) {
-      return res.json({
-        success: false,
-        message: `Student with id:${id} does not exist`,
-      });
-    }
-  
-    STUDENTS[studentIndex] = {
-      id: parseInt(id),
-      name: name,
-      city: city,
-    };
-  
-    res.json({
-      success: true,
-      data: STUDENTS[studentIndex],
-      message: `Student with id:${id} updated successfully`,
+  }
+
+  if (!city) {
+    return res.json({
+      success: false,
+      message: "City is required",
     });
+  }
+
+  let studentIndex = -1;
+
+  STUDENTS.forEach((stud, i) => {
+    if (stud.id == id) {
+      studentIndex = i;
+    }
+  });
+
+  if (studentIndex == -1) {
+    return res.json({
+      success: false,
+      message: `Student with id:${id} does not exist`,
+    });
+  }
+
+  STUDENTS[studentIndex] = {
+    id: parseInt(id),
+    name: name,
+    city: city
   };
-//------------------------------Patch API---------------------------------------//
-const patchStudentsCityById = (req, res) => {
+
+  res.json({
+    success: true,
+    data: STUDENTS[studentIndex],
+    message: `Student with id:${id} updated successfully`,
+  });
+};
+//----------------------patch city by id------------------------------//
+  const patchStudentsCityById = (req, res) => {
     const { id } = req.params;
     const { city } = req.body;
   
@@ -186,6 +187,32 @@ const patchStudentsCityById = (req, res) => {
       message: `Student with id:${id} updated successfully`,
     });
   };
+  
+  const getStudentsById = (req, res) => {
+    const { id } = req.params;
+  
+    let studentIndex = -1;
+  
+    STUDENTS.forEach((stud, i) => {
+      if (stud.id == id) {
+        studentIndex = i;
+      }
+    });
+  
+    if (studentIndex == -1) {
+      return res.status(404).json({
+        success: false,
+        message: `Student with id:${id} does not exist`,
+      });
+    } else {
+      return res.status(200).json({
+        success: true,
+        data: STUDENTS[studentIndex],
+        message: `Student with id:${id} fetched successfully`,
+      });
+    }
+  };
+  
   const getStudentsSearch = (req, res) => {
     const { name } = req.query;
     const { authorization } = req.headers;
@@ -202,14 +229,14 @@ const patchStudentsCityById = (req, res) => {
       message: `You are searching for ${name}`,
     });
   };
-
+  
   export {
     deleteStudentsById,
     getHealth,
     getStudents,
+    getStudentsById,
+    getStudentsSearch,
     patchStudentsCityById,
     postStudents,
     putStudentsById,
-    getStudentsById,
-    getStudentsSearch,   
   };
