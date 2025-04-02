@@ -1,13 +1,12 @@
-// this is a temporary data store
 const STUDENTS = [
     {
       id: 1,
-      name: "Ritiksha",
+      name: "Ritiksha Ingle",
       city: "Amravati",
     },
     {
       id: 2,
-      name: "Kiran",
+      name: "Sammy Roi",
       city: "Pune",
     },
   ];
